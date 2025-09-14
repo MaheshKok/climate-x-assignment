@@ -1,0 +1,9 @@
+address,latitude,longitude
+"123 Main St, New York, NY",40.7128,-74.0060
+"456 Oak Ave, Los Angeles, CA",invalid_lat,-118.2437
+"789 Pine Rd, Chicago, IL",41.8781,invalid_long
+"321 Elm St, Houston, TX",200,-95.3698
+"654 Maple Dr, Phoenix, AZ",33.4484,-200
+,40.7128,-74.0060
+"No Coords Street",
+"Only Address Street",,

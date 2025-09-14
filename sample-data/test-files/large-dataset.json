@@ -1,0 +1,502 @@
+[
+  {
+    "address": "6309 Maple Dr, Chicago, IL",
+    "latitude": 41.845136,
+    "longitude": -87.646156
+  },
+  {
+    "address": "9543 Second St, Seattle, WA",
+    "latitude": 47.703802,
+    "longitude": -122.298663
+  },
+  {
+    "address": "5828 Third St, Dallas, TX",
+    "latitude": 32.837943,
+    "longitude": -96.721329
+  },
+  {
+    "address": "894 Oak Ave, Houston, TX",
+    "latitude": 29.745987,
+    "longitude": -95.426014
+  },
+  {
+    "address": "7217 Oak Ave, Phoenix, AZ",
+    "latitude": 33.484811,
+    "longitude": -112.090377
+  },
+  {
+    "address": "2294 Oak Ave, Chicago, IL",
+    "latitude": 41.880383,
+    "longitude": -87.662563
+  },
+  {
+    "address": "4188 First St, Dallas, TX",
+    "latitude": 32.835425,
+    "longitude": -96.720374
+  },
+  {
+    "address": "7772 Third St, Jacksonville, FL",
+    "latitude": 30.363942,
+    "longitude": -81.634667
+  },
+  {
+    "address": "9002 Main St, Columbus, OH",
+    "latitude": 39.878114,
+    "longitude": -82.946513
+  },
+  {
+    "address": "9693 Oak Ave, Houston, TX",
+    "latitude": 29.71332,
+    "longitude": -95.340514
+  },
+  {
+    "address": "871 Pine Rd, Columbus, OH",
+    "latitude": 40.01219,
+    "longitude": -82.937221
+  },
+  {
+    "address": "7749 Maple Dr, Jacksonville, FL",
+    "latitude": 30.292548,
+    "longitude": -81.649824
+  },
+  {
+    "address": "3201 First St, Charlotte, NC",
+    "latitude": 35.320317,
+    "longitude": -80.838332
+  },
+  {
+    "address": "2028 Cedar Ln, Chicago, IL",
+    "latitude": 41.853591,
+    "longitude": -87.57592
+  },
+  {
+    "address": "7227 Park Ave, Austin, TX",
+    "latitude": 30.316831,
+    "longitude": -97.739988
+  },
+  {
+    "address": "5830 Second St, Los Angeles, CA",
+    "latitude": 33.958031,
+    "longitude": -118.31906
+  },
+  {
+    "address": "743 Park Ave, Denver, CO",
+    "latitude": 39.660565,
+    "longitude": -104.91734
+  },
+  {
+    "address": "6078 Cedar Ln, Phoenix, AZ",
+    "latitude": 33.388586,
+    "longitude": -112.089716
+  },
+  {
+    "address": "8796 Maple Dr, Houston, TX",
+    "latitude": 29.762806,
+    "longitude": -95.301035
+  },
+  {
+    "address": "2664 Pine Rd, Boston, MA",
+    "latitude": 42.325247,
+    "longitude": -71.149377
+  },
+  {
+    "address": "6846 Second St, Houston, TX",
+    "latitude": 29.732852,
+    "longitude": -95.460207
+  },
+  {
+    "address": "7312 Oak Ave, Austin, TX",
+    "latitude": 30.240483,
+    "longitude": -97.773236
+  },
+  {
+    "address": "627 Park Ave, San Diego, CA",
+    "latitude": 32.814842,
+    "longitude": -117.080669
+  },
+  {
+    "address": "1303 First St, Seattle, WA",
+    "latitude": 47.631659,
+    "longitude": -122.39362
+  },
+  {
+    "address": "9081 Pine Rd, Denver, CO",
+    "latitude": 39.779786,
+    "longitude": -104.929625
+  },
+  {
+    "address": "3146 Park Ave, Indianapolis, IN",
+    "latitude": 39.801861,
+    "longitude": -86.085139
+  },
+  {
+    "address": "2512 Second St, Fort Worth, TX",
+    "latitude": 32.753844,
+    "longitude": -97.420376
+  },
+  {
+    "address": "7810 First St, Columbus, OH",
+    "latitude": 39.907868,
+    "longitude": -82.999955
+  },
+  {
+    "address": "5247 Second St, Phoenix, AZ",
+    "latitude": 33.507225,
+    "longitude": -112.082268
+  },
+  {
+    "address": "8626 Maple Dr, Dallas, TX",
+    "latitude": 32.816133,
+    "longitude": -96.764161
+  },
+  {
+    "address": "6126 Main St, Los Angeles, CA",
+    "latitude": 34.087294,
+    "longitude": -118.244615
+  },
+  {
+    "address": "7936 Maple Dr, Denver, CO",
+    "latitude": 39.650218,
+    "longitude": -104.96226
+  },
+  {
+    "address": "8124 Park Ave, Austin, TX",
+    "latitude": 30.181219,
+    "longitude": -97.663524
+  },
+  {
+    "address": "1895 Main St, San Antonio, TX",
+    "latitude": 29.476794,
+    "longitude": -98.551413
+  },
+  {
+    "address": "1675 Main St, Denver, CO",
+    "latitude": 39.686204,
+    "longitude": -105.057251
+  },
+  {
+    "address": "2513 Pine Rd, San Antonio, TX",
+    "latitude": 29.47637,
+    "longitude": -98.555761
+  },
+  {
+    "address": "3380 Third St, Indianapolis, IN",
+    "latitude": 39.775227,
+    "longitude": -86.247449
+  },
+  {
+    "address": "5741 First St, Philadelphia, PA",
+    "latitude": 40.025008,
+    "longitude": -75.105653
+  },
+  {
+    "address": "3721 First St, Phoenix, AZ",
+    "latitude": 33.480515,
+    "longitude": -112.077388
+  },
+  {
+    "address": "2164 Main St, San Jose, CA",
+    "latitude": 37.270076,
+    "longitude": -121.86877
+  },
+  {
+    "address": "5601 Elm St, San Francisco, CA",
+    "latitude": 37.725776,
+    "longitude": -122.350278
+  },
+  {
+    "address": "7246 Cedar Ln, Jacksonville, FL",
+    "latitude": 30.235707,
+    "longitude": -81.675913
+  },
+  {
+    "address": "4310 Cedar Ln, Los Angeles, CA",
+    "latitude": 34.114582,
+    "longitude": -118.249555
+  },
+  {
+    "address": "2799 Second St, San Jose, CA",
+    "latitude": 37.25729,
+    "longitude": -121.819857
+  },
+  {
+    "address": "1904 Pine Rd, Boston, MA",
+    "latitude": 42.347154,
+    "longitude": -71.006031
+  },
+  {
+    "address": "5081 Park Ave, Fort Worth, TX",
+    "latitude": 32.660083,
+    "longitude": -97.323996
+  },
+  {
+    "address": "2017 Maple Dr, San Antonio, TX",
+    "latitude": 29.465096,
+    "longitude": -98.396053
+  },
+  {
+    "address": "984 Maple Dr, Jacksonville, FL",
+    "latitude": 30.316205,
+    "longitude": -81.68744
+  },
+  {
+    "address": "5410 Elm St, San Francisco, CA",
+    "latitude": 37.839483,
+    "longitude": -122.509255
+  },
+  {
+    "address": "4292 Second St, San Francisco, CA",
+    "latitude": 37.789116,
+    "longitude": -122.394037
+  },
+  {
+    "address": "3717 Park Ave, Austin, TX",
+    "latitude": 30.242319,
+    "longitude": -97.700092
+  },
+  {
+    "address": "2064 Oak Ave, Los Angeles, CA",
+    "latitude": 34.034898,
+    "longitude": -118.212799
+  },
+  {
+    "address": "7728 Third St, Houston, TX",
+    "latitude": 29.687479,
+    "longitude": -95.300004
+  },
+  {
+    "address": "6148 Second St, Indianapolis, IN",
+    "latitude": 39.746362,
+    "longitude": -86.203762
+  },
+  {
+    "address": "2414 Cedar Ln, San Jose, CA",
+    "latitude": 37.363359,
+    "longitude": -121.887343
+  },
+  {
+    "address": "7817 Elm St, San Diego, CA",
+    "latitude": 32.772582,
+    "longitude": -117.137694
+  },
+  {
+    "address": "6898 Elm St, Columbus, OH",
+    "latitude": 40.032564,
+    "longitude": -82.899059
+  },
+  {
+    "address": "3632 Cedar Ln, Los Angeles, CA",
+    "latitude": 33.993433,
+    "longitude": -118.241399
+  },
+  {
+    "address": "855 Pine Rd, Dallas, TX",
+    "latitude": 32.718775,
+    "longitude": -96.766608
+  },
+  {
+    "address": "5252 Main St, San Diego, CA",
+    "latitude": 32.635877,
+    "longitude": -117.151409
+  },
+  {
+    "address": "8845 Pine Rd, Charlotte, NC",
+    "latitude": 35.312638,
+    "longitude": -80.778908
+  },
+  {
+    "address": "1440 Oak Ave, Phoenix, AZ",
+    "latitude": 33.354291,
+    "longitude": -112.026401
+  },
+  {
+    "address": "2896 Second St, Seattle, WA",
+    "latitude": 47.599268,
+    "longitude": -122.303826
+  },
+  {
+    "address": "8611 Main St, Columbus, OH",
+    "latitude": 39.895936,
+    "longitude": -83.012917
+  },
+  {
+    "address": "9338 Main St, Los Angeles, CA",
+    "latitude": 33.997358,
+    "longitude": -118.314978
+  },
+  {
+    "address": "959 Second St, San Jose, CA",
+    "latitude": 37.367797,
+    "longitude": -121.974355
+  },
+  {
+    "address": "238 Pine Rd, Dallas, TX",
+    "latitude": 32.818967,
+    "longitude": -96.812332
+  },
+  {
+    "address": "7676 Park Ave, San Antonio, TX",
+    "latitude": 29.41813,
+    "longitude": -98.577385
+  },
+  {
+    "address": "7910 Elm St, Austin, TX",
+    "latitude": 30.31534,
+    "longitude": -97.821737
+  },
+  {
+    "address": "2044 Second St, Houston, TX",
+    "latitude": 29.788027,
+    "longitude": -95.309183
+  },
+  {
+    "address": "5039 Pine Rd, Dallas, TX",
+    "latitude": 32.8459,
+    "longitude": -96.838863
+  },
+  {
+    "address": "5446 First St, San Antonio, TX",
+    "latitude": 29.475471,
+    "longitude": -98.495279
+  },
+  {
+    "address": "849 Elm St, Dallas, TX",
+    "latitude": 32.687118,
+    "longitude": -96.846682
+  },
+  {
+    "address": "4737 Pine Rd, Fort Worth, TX",
+    "latitude": 32.661667,
+    "longitude": -97.341176
+  },
+  {
+    "address": "4369 Park Ave, Dallas, TX",
+    "latitude": 32.687061,
+    "longitude": -96.77764
+  },
+  {
+    "address": "6134 Maple Dr, Denver, CO",
+    "latitude": 39.805582,
+    "longitude": -105.089542
+  },
+  {
+    "address": "3102 Elm St, Jacksonville, FL",
+    "latitude": 30.244422,
+    "longitude": -81.674593
+  },
+  {
+    "address": "7074 Main St, Dallas, TX",
+    "latitude": 32.784967,
+    "longitude": -96.715636
+  },
+  {
+    "address": "9957 Elm St, Philadelphia, PA",
+    "latitude": 39.892799,
+    "longitude": -75.18838
+  },
+  {
+    "address": "3075 Elm St, San Jose, CA",
+    "latitude": 37.317389,
+    "longitude": -121.922409
+  },
+  {
+    "address": "9967 Cedar Ln, Houston, TX",
+    "latitude": 29.680309,
+    "longitude": -95.330908
+  },
+  {
+    "address": "481 Cedar Ln, Houston, TX",
+    "latitude": 29.749147,
+    "longitude": -95.307499
+  },
+  {
+    "address": "417 Pine Rd, Columbus, OH",
+    "latitude": 39.891746,
+    "longitude": -82.976143
+  },
+  {
+    "address": "4760 Elm St, New York, NY",
+    "latitude": 40.616047,
+    "longitude": -74.090116
+  },
+  {
+    "address": "972 Cedar Ln, Jacksonville, FL",
+    "latitude": 30.30677,
+    "longitude": -81.612845
+  },
+  {
+    "address": "579 Park Ave, San Jose, CA",
+    "latitude": 37.339669,
+    "longitude": -121.946111
+  },
+  {
+    "address": "7140 Elm St, Dallas, TX",
+    "latitude": 32.854509,
+    "longitude": -96.71836
+  },
+  {
+    "address": "2281 Oak Ave, Austin, TX",
+    "latitude": 30.206514,
+    "longitude": -97.832584
+  },
+  {
+    "address": "3028 First St, Denver, CO",
+    "latitude": 39.654874,
+    "longitude": -104.998903
+  },
+  {
+    "address": "6869 Pine Rd, New York, NY",
+    "latitude": 40.667032,
+    "longitude": -73.994352
+  },
+  {
+    "address": "5810 Cedar Ln, Jacksonville, FL",
+    "latitude": 30.401301,
+    "longitude": -81.652021
+  },
+  {
+    "address": "9072 Oak Ave, Boston, MA",
+    "latitude": 42.456604,
+    "longitude": -70.99376
+  },
+  {
+    "address": "6395 Oak Ave, Boston, MA",
+    "latitude": 42.281904,
+    "longitude": -71.04152
+  },
+  {
+    "address": "3436 Pine Rd, Los Angeles, CA",
+    "latitude": 33.959088,
+    "longitude": -118.152619
+  },
+  {
+    "address": "2006 Pine Rd, San Diego, CA",
+    "latitude": 32.653537,
+    "longitude": -117.082349
+  },
+  {
+    "address": "4838 Oak Ave, Los Angeles, CA",
+    "latitude": 34.066536,
+    "longitude": -118.198195
+  },
+  {
+    "address": "4793 Park Ave, Chicago, IL",
+    "latitude": 41.863104,
+    "longitude": -87.611771
+  },
+  {
+    "address": "638 First St, Chicago, IL",
+    "latitude": 41.975497,
+    "longitude": -87.616944
+  },
+  {
+    "address": "6146 Cedar Ln, Dallas, TX",
+    "latitude": 32.792157,
+    "longitude": -96.804302
+  },
+  {
+    "address": "6462 Main St, Indianapolis, IN",
+    "latitude": 39.72645,
+    "longitude": -86.209482
+  }
+]

@@ -1,0 +1,6 @@
+echo "🔍 Running pre-commit hooks..."
+
+# Run lint-staged for code quality checks
+npm run pre-commit
+
+echo "✅ Pre-commit checks completed!"

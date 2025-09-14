@@ -1,0 +1,17 @@
+[
+  {
+    "address": "987 Broadway, San Francisco, CA",
+    "latitude": 37.7749,
+    "longitude": -122.4194
+  },
+  {
+    "address": "111 Tech Ave, Austin, TX",
+    "latitude": 30.2672,
+    "longitude": -97.7431
+  },
+  {
+    "address": "222 Innovation Dr, Seattle, WA",
+    "latitude": 47.6062,
+    "longitude": -122.3321
+  }
+]
