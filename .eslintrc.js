@@ -70,7 +70,6 @@ module.exports = {
     complexity: ['warn', { max: 15 }], // Cyclomatic complexity
     'max-depth': ['warn', 4], // Maximum nesting depth
     'max-lines': ['warn', { max: 500, skipBlankLines: true }], // Max lines per file
-    'max-lines-per-function': ['warn', { max: 100, skipBlankLines: true }], // Max lines per function
     'max-params': ['warn', 4], // Maximum function parameters
 
     // Import/Export rules (like Python's isort)

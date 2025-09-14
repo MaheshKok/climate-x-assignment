@@ -5,22 +5,22 @@
 
 import { AttachmentIcon, ViewIcon } from '@chakra-ui/icons';
 import {
+  Badge,
   Box,
   Container,
-  VStack,
-  Heading,
-  Text,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
   Divider,
-  useToast,
-  HStack,
-  Badge,
-  Icon,
   Flex,
+  Heading,
+  HStack,
+  Icon,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+  useToast,
+  VStack,
 } from '@chakra-ui/react';
 import Head from 'next/head';
 import { useState } from 'react';

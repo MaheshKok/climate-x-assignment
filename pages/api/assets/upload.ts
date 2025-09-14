@@ -4,7 +4,7 @@
  * Following the exact specification
  */
 
-import multer from 'multer';
+import multer, { memoryStorage } from 'multer';
 import { NextApiRequest, NextApiResponse } from 'next';
 import Papa from 'papaparse';
 
@@ -13,7 +13,7 @@ import { Asset, AssetUploadResponse } from '../../../src/types/asset';
 
 // Configure multer for file uploads
 const upload = multer({
-  storage: multer.memoryStorage(),
+  storage: memoryStorage(),
   limits: {
     fileSize: 50 * 1024 * 1024, // 50MB max
   },
