@@ -33,7 +33,6 @@ export default async function handler(
       total: assets.length,
     });
   } catch (error) {
-    console.error('Get assets error:', error);
     return res.status(500).json({
       success: false,
       assets: [],

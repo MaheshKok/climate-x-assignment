@@ -122,6 +122,15 @@ export default function FileUpload({ onUploadSuccess, onUploadError }: FileUploa
       formData.append('companyId', companyId.trim());
       formData.append('assetFile', selectedFile!);
 
+      console.log(
+        'Uploading file:',
+        selectedFile!.name,
+        'Size:',
+        selectedFile!.size,
+        'Type:',
+        selectedFile!.type
+      );
+
       // Create XMLHttpRequest to track upload progress
       const xhr = new XMLHttpRequest();
 
@@ -133,6 +142,9 @@ export default function FileUpload({ onUploadSuccess, onUploadError }: FileUploa
       };
 
       xhr.onload = () => {
+        console.log('Upload response status:', xhr.status);
+        console.log('Upload response:', xhr.responseText);
+
         try {
           if (xhr.status === 200) {
             const response: AssetUploadResponse = JSON.parse(xhr.responseText);
