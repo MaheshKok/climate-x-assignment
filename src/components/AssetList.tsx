@@ -40,7 +40,8 @@ import {
 } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 
-import { AssetWithCompany, AssetsListResponse } from '../types/asset';
+import { useAssets, useDeleteAsset } from '../hooks/useAssets';
+import { AssetWithCompany } from '../types/asset';
 
 interface AssetListProps {
   onAssetSelect?: (asset: AssetWithCompany) => void;
@@ -48,47 +49,23 @@ interface AssetListProps {
 }
 
 export default function AssetList({ onAssetSelect, refreshTrigger }: AssetListProps) {
-  const [assets, setAssets] = useState<AssetWithCompany[]>([]);
   const [filteredAssets, setFilteredAssets] = useState<AssetWithCompany[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [companyFilter, setCompanyFilter] = useState('');
   const [assetToDelete, setAssetToDelete] = useState<AssetWithCompany | null>(null);
-  const [isDeleting, setIsDeleting] = useState(false);
+
+  const {
+    data: assets = [],
+    isLoading: loading,
+    error,
+    refetch,
+  } = useAssets(companyFilter || undefined);
+  const deleteAssetMutation = useDeleteAsset();
 
   const isMobile = useBreakpointValue({ base: true, md: false });
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef<HTMLButtonElement>(null);
-
-  const fetchAssets = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      const url = companyFilter
-        ? `/api/assets?companyId=${encodeURIComponent(companyFilter)}`
-        : '/api/assets';
-
-      const response = await fetch(url);
-      const data: AssetsListResponse = await response.json();
-
-      if (data.success) {
-        setAssets(data.assets);
-        setFilteredAssets(data.assets);
-      } else {
-        throw new Error(data.error || 'Failed to fetch assets');
-      }
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Unknown error';
-      setError(errorMessage);
-      setAssets([]);
-      setFilteredAssets([]);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   // Filter assets based on search term
   useEffect(() => {
@@ -102,22 +79,15 @@ export default function AssetList({ onAssetSelect, refreshTrigger }: AssetListPr
     }
   }, [assets, searchTerm]);
 
-  // Fetch assets on component mount and when refreshTrigger changes
+  // Refetch assets when refreshTrigger changes
   useEffect(() => {
-    fetchAssets();
-  }, [refreshTrigger]);
-
-  // Debounce company filter changes to avoid interfering with typing
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      fetchAssets();
-    }, 500); // 500ms delay
-
-    return () => clearTimeout(timeoutId);
-  }, [companyFilter]);
+    if (refreshTrigger) {
+      refetch();
+    }
+  }, [refreshTrigger, refetch]);
 
   const handleRefresh = () => {
-    fetchAssets();
+    refetch();
   };
 
   const handleDeleteClick = (asset: AssetWithCompany) => {
@@ -131,57 +101,33 @@ export default function AssetList({ onAssetSelect, refreshTrigger }: AssetListPr
       return;
     }
 
-    setIsDeleting(true);
-
     try {
-      const response = await fetch('/api/assets/delete', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          companyId: assetToDelete.companyId,
-          latitude: assetToDelete.latitude,
-          longitude: assetToDelete.longitude,
-        }),
+      const result = await deleteAssetMutation.mutateAsync({
+        companyId: assetToDelete.companyId,
+        latitude: assetToDelete.latitude,
+        longitude: assetToDelete.longitude,
       });
 
-      const data = await response.json();
+      const description = result.deletedAsset
+        ? `Successfully deleted "${result.deletedAsset.address}" from ${result.deletedAsset.companyId}`
+        : result.message;
 
-      if (data.success) {
-        const description = data.deletedAsset
-          ? `Successfully deleted "${data.deletedAsset.address}" from ${data.deletedAsset.companyId}`
-          : data.message;
-
-        toast({
-          title: 'Asset deleted',
-          description: description,
-          status: 'success',
-          duration: 4000,
-          isClosable: true,
-        });
-
-        // Refresh the asset list
-        fetchAssets();
-      } else {
-        toast({
-          title: 'Delete failed',
-          description: data.error || 'Failed to delete asset',
-          status: 'error',
-          duration: 4000,
-          isClosable: true,
-        });
-      }
+      toast({
+        title: 'Asset deleted',
+        description: description,
+        status: 'success',
+        duration: 4000,
+        isClosable: true,
+      });
     } catch (error) {
       toast({
         title: 'Delete failed',
-        description: 'Network error occurred',
+        description: error instanceof Error ? error.message : 'Failed to delete asset',
         status: 'error',
         duration: 4000,
         isClosable: true,
       });
     } finally {
-      setIsDeleting(false);
       setAssetToDelete(null);
       onClose();
     }
@@ -204,7 +150,7 @@ export default function AssetList({ onAssetSelect, refreshTrigger }: AssetListPr
         <AlertIcon />
         <VStack align='start' spacing={2}>
           <Text fontWeight='semibold'>Error loading assets</Text>
-          <Text fontSize='sm'>{error}</Text>
+          <Text fontSize='sm'>{error instanceof Error ? error.message : 'Unknown error'}</Text>
           <Button size='sm' colorScheme='red' onClick={handleRefresh}>
             Try Again
           </Button>
@@ -467,14 +413,14 @@ export default function AssetList({ onAssetSelect, refreshTrigger }: AssetListPr
             </AlertDialogBody>
 
             <AlertDialogFooter>
-              <Button ref={cancelRef} onClick={onClose} disabled={isDeleting}>
+              <Button ref={cancelRef} onClick={onClose} disabled={deleteAssetMutation.isPending}>
                 Cancel
               </Button>
               <Button
                 colorScheme='red'
                 onClick={handleDeleteConfirm}
                 ml={3}
-                isLoading={isDeleting}
+                isLoading={deleteAssetMutation.isPending}
                 loadingText='Deleting...'
               >
                 Delete

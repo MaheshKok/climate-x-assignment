@@ -19,7 +19,8 @@ import {
 } from '@chakra-ui/react';
 import React, { useState, useRef } from 'react';
 
-import { Asset, AssetUploadResponse, FileUploadProgress } from '../types/asset';
+import { useUploadAsset } from '../hooks/useAssets';
+import { Asset, FileUploadProgress } from '../types/asset';
 
 interface FileUploadProps {
   onUploadSuccess?: (assets: Asset[]) => void;
@@ -37,6 +38,7 @@ export default function FileUpload({ onUploadSuccess, onUploadError }: FileUploa
   const [errors, setErrors] = useState<{ companyId?: string; file?: string }>({});
   const fileInputRef = useRef<HTMLInputElement>(null);
   const toast = useToast();
+  const uploadAssetMutation = useUploadAsset();
 
   // Validate file type (only CSV and JSON )
   const validateFile = (file: File): boolean => {
@@ -131,113 +133,36 @@ export default function FileUpload({ onUploadSuccess, onUploadError }: FileUploa
         selectedFile!.type
       );
 
-      // Create XMLHttpRequest to track upload progress
-      const xhr = new XMLHttpRequest();
+      const response = await uploadAssetMutation.mutateAsync(formData);
 
-      xhr.upload.onprogress = event => {
-        if (event.lengthComputable) {
-          const progress = Math.round((event.loaded / event.total) * 100);
-          setUploadProgress({ progress, status: 'uploading' });
+      if (response.success && response.assets) {
+        setUploadProgress({ progress: 100, status: 'success' });
+        onUploadSuccess?.(response.assets);
+
+        let toastStatus: 'success' | 'warning' = 'success';
+        if (response.duplicatesSkipped && response.duplicatesSkipped > 0) {
+          toastStatus = 'warning';
         }
-      };
-
-      xhr.onload = () => {
-        console.log('Upload response status:', xhr.status);
-        console.log('Upload response:', xhr.responseText);
-
-        try {
-          if (xhr.status === 200) {
-            const response: AssetUploadResponse = JSON.parse(xhr.responseText);
-            if (response.success && response.assets) {
-              setUploadProgress({ progress: 100, status: 'success' });
-              onUploadSuccess?.(response.assets);
-
-              let toastStatus: 'success' | 'warning' = 'success';
-              if (response.duplicatesSkipped && response.duplicatesSkipped > 0) {
-                toastStatus = 'warning';
-              }
-
-              toast({
-                title: 'Upload completed',
-                description: response.message,
-                status: toastStatus,
-                duration: 6000,
-                isClosable: true,
-              });
-
-              // Reset form
-              setSelectedFile(null);
-              setCompanyId('');
-              if (fileInputRef.current) {
-                fileInputRef.current.value = '';
-              }
-            } else {
-              // Handle API error response
-              const errorMessage = response.error || 'Upload failed';
-              setUploadProgress({ progress: 0, status: 'error', error: errorMessage });
-
-              toast({
-                title: 'Upload failed',
-                description: errorMessage,
-                status: 'error',
-                duration: 6000,
-                isClosable: true,
-              });
-            }
-          } else {
-            // Handle HTTP error status
-            let errorMessage = `HTTP ${xhr.status}: ${xhr.statusText || 'Request failed'}`;
-            try {
-              const errorResponse = JSON.parse(xhr.responseText);
-              errorMessage = errorResponse.error || errorMessage;
-            } catch (parseError) {
-              // Use the default error message if JSON parsing fails
-            }
-
-            setUploadProgress({ progress: 0, status: 'error', error: errorMessage });
-
-            toast({
-              title: 'Upload failed',
-              description: errorMessage,
-              status: 'error',
-              duration: 6000,
-              isClosable: true,
-            });
-          }
-        } catch (error) {
-          // Handle any unexpected errors in onload
-          const errorMessage = error instanceof Error ? error.message : 'Unexpected error occurred';
-          setUploadProgress({ progress: 0, status: 'error', error: errorMessage });
-
-          toast({
-            title: 'Upload failed',
-            description: errorMessage,
-            status: 'error',
-            duration: 6000,
-            isClosable: true,
-          });
-        }
-      };
-
-      xhr.onerror = () => {
-        const errorMessage = 'Network error occurred';
-        setUploadProgress({ progress: 0, status: 'error', error: errorMessage });
 
         toast({
-          title: 'Upload failed',
-          description: errorMessage,
-          status: 'error',
+          title: 'Upload completed',
+          description: response.message,
+          status: toastStatus,
           duration: 6000,
           isClosable: true,
         });
-      };
 
-      xhr.open('POST', '/api/assets/upload');
-      xhr.send(formData);
+        // Reset form
+        setSelectedFile(null);
+        setCompanyId('');
+        if (fileInputRef.current) {
+          fileInputRef.current.value = '';
+        }
+      }
     } catch (error) {
-      // Handle any synchronous errors (like FormData creation)
-      const errorMessage = error instanceof Error ? error.message : 'Upload preparation failed';
+      const errorMessage = error instanceof Error ? error.message : 'Upload failed';
       setUploadProgress({ progress: 0, status: 'error', error: errorMessage });
+      onUploadError?.(errorMessage);
 
       toast({
         title: 'Upload failed',
@@ -249,7 +174,7 @@ export default function FileUpload({ onUploadSuccess, onUploadError }: FileUploa
     }
   };
 
-  const isUploading = uploadProgress.status === 'uploading';
+  const isUploading = uploadProgress.status === 'uploading' || uploadAssetMutation.isPending;
 
   return (
     <VStack spacing={6} align='stretch'>
