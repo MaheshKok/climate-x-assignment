@@ -78,7 +78,7 @@ export class AssetStorage {
 
     for (const asset of assets) {
       // Check for duplicates based on latitude, longitude, and companyId
-      const isDuplicate = existingAssets.some(
+      const isDuplicate = existingAssets?.some(
         existing =>
           Math.abs(existing.latitude - asset.latitude) < 0.0001 &&
           Math.abs(existing.longitude - asset.longitude) < 0.0001
@@ -91,7 +91,7 @@ export class AssetStorage {
       }
     }
 
-    this.storage[sanitizedId].push(...newAssets);
+    this.storage[sanitizedId]?.push(...newAssets);
     return { added: newAssets, duplicatesSkipped };
   }
 
