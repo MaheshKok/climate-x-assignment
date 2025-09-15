@@ -23,6 +23,8 @@ node_modules/
 *.swo
 *~
 
+.swc/
+
 # OS generated files
 .DS_Store
 .DS_Store?
