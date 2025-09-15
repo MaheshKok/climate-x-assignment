@@ -43,11 +43,12 @@ export class AssetStorage {
   }
 
   public getAssets(companyId?: string): AssetWithCompany[] {
-    if (companyId) {
+    const filterId = companyId?.trim();
+    if (filterId) {
       // Support partial matching for company IDs
       const allAssets: AssetWithCompany[] = [];
       for (const [compId, assets] of Object.entries(this.storage)) {
-        if (compId.toLowerCase().includes(companyId.toLowerCase())) {
+        if (compId.toLowerCase().includes(filterId.toLowerCase())) {
           allAssets.push(...assets.map(asset => ({ ...asset, companyId: compId })));
         }
       }
@@ -66,11 +67,12 @@ export class AssetStorage {
     companyId: string,
     assets: Asset[]
   ): { added: Asset[]; duplicatesSkipped: number } {
-    if (!this.storage[companyId]) {
+    const sanitizedId = companyId.trim();
+    if (!this.storage[sanitizedId]) {
       this.storage[companyId] = [];
     }
 
-    const existingAssets = this.storage[companyId];
+    const existingAssets = this.storage[sanitizedId];
     const newAssets: Asset[] = [];
     let duplicatesSkipped = 0;
 
@@ -89,7 +91,7 @@ export class AssetStorage {
       }
     }
 
-    this.storage[companyId].push(...newAssets);
+    this.storage[sanitizedId].push(...newAssets);
     return { added: newAssets, duplicatesSkipped };
   }
 
@@ -98,11 +100,12 @@ export class AssetStorage {
     latitude: number,
     longitude: number
   ): { success: boolean; deletedAsset?: Asset } {
-    if (!this.storage[companyId]) {
+    const sanitizedId = companyId.trim();
+    if (!this.storage[sanitizedId]) {
       return { success: false };
     }
 
-    const assetsToDelete = this.storage[companyId].filter(
+    const assetsToDelete = this.storage[sanitizedId].filter(
       asset =>
         Math.abs(asset.latitude - latitude) < 0.001 && Math.abs(asset.longitude - longitude) < 0.001
     );
@@ -113,7 +116,7 @@ export class AssetStorage {
 
     const deletedAsset = assetsToDelete[0];
 
-    this.storage[companyId] = this.storage[companyId].filter(
+    this.storage[sanitizedId] = this.storage[sanitizedId].filter(
       asset =>
         !(
           Math.abs(asset.latitude - latitude) < 0.001 &&
@@ -122,7 +125,7 @@ export class AssetStorage {
     );
 
     // Clean up empty company arrays
-    if (this.storage[companyId].length === 0) {
+    if (this.storage[sanitizedId].length === 0) {
       delete this.storage[companyId];
     }
 

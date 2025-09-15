@@ -195,7 +195,7 @@ export default async function handler(
     }
 
     // Store assets using shared storage with duplicate detection
-    const { added, duplicatesSkipped } = assetStorage.addAssets(companyId, assets);
+    const { added, duplicatesSkipped } = assetStorage.addAssets(companyId.trim(), assets);
 
     let message = `Successfully uploaded ${added.length} asset(s) for company ${companyId}`;
     if (duplicatesSkipped > 0) {

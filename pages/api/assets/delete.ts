@@ -66,7 +66,7 @@ export default async function handler(
     }
 
     // Attempt to delete the asset
-    const deleteResult = assetStorage.deleteAsset(companyId, latitude, longitude);
+    const deleteResult = assetStorage.deleteAsset(companyId.trim(), latitude, longitude);
 
     if (deleteResult.success && deleteResult.deletedAsset) {
       return res.status(200).json({
