@@ -61,17 +61,24 @@ export function validateFile(file: File): AssetValidationResult {
 }
 
 export function getFileType(mimeType: string): 'csv' | 'json' {
+  if (!mimeType || typeof mimeType !== 'string') return 'json';
   return FILE_TYPE_MAPPINGS[mimeType as keyof typeof FILE_TYPE_MAPPINGS] || 'json';
 }
 
 export function formatFileSize(bytes: number): string {
+  // Handle edge cases
+  if (bytes == null || isNaN(bytes)) return '0 Bytes';
   if (bytes === 0) return '0 Bytes';
+  if (bytes < 0) return '0 Bytes';
 
   const k = 1024;
   const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  const i = Math.max(0, Math.min(sizes.length - 1, Math.floor(Math.log(Math.abs(bytes)) / Math.log(k))));
 
-  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`;
+  const result = bytes / Math.pow(k, i);
+  const formatted = result % 1 === 0 ? result.toString() : result.toFixed(1);
+
+  return `${formatted} ${sizes[i]}`;
 }
 
 export async function parseCsvFile(file: File): Promise<ParsedCsvData> {
@@ -157,5 +164,7 @@ export function generateAssetId(): string {
 }
 
 export function getFileExtension(filename: string): string {
-  return filename.split('.').pop()?.toLowerCase() || '';
+  if (!filename || typeof filename !== 'string') return '';
+  const parts = filename.split('.');
+  return parts.length > 1 ? parts.pop()?.toLowerCase() || '' : '';
 }

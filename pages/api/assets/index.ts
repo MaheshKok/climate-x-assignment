@@ -24,13 +24,19 @@ export default async function handler(
   try {
     const { companyId } = req.query;
 
+    // Handle array query parameters (convert to string)
+    const companyIdParam = Array.isArray(companyId) ? companyId.join(',') : companyId;
+
     // Use shared storage
-    const assets = assetStorage.getAssets(companyId as string);
+    const assets = assetStorage.getAssets(companyIdParam as string);
+
+    // Handle null/undefined assets gracefully
+    const safeAssets = assets || [];
 
     return res.status(200).json({
       success: true,
-      assets,
-      total: assets.length,
+      assets: safeAssets,
+      total: safeAssets.length,
     });
   } catch (error) {
     return res.status(500).json({

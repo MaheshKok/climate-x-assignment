@@ -6,7 +6,7 @@
 import { Asset, AssetWithCompany } from '../types/asset';
 
 // Global in-memory storage shared across API routes
-class AssetStorage {
+export class AssetStorage {
   private static instance: AssetStorage;
   private storage: { [companyId: string]: Asset[] } = {};
 
