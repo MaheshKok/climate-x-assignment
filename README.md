@@ -1,13 +1,18 @@
 # Asset Management System
 
-A comprehensive asset management system built with Next.js that allows companies to upload, view, and manage their asset data through CSV/JSON file uploads with real-time visualization and filtering capabilities.
+A comprehensive asset management system built with Next.js that allows companies
+to upload, view, and manage their asset data through CSV/JSON file uploads with
+real-time visualization and filtering capabilities.
 
 ## 🚀 Features
 
 - **File Upload Support**: Upload CSV and JSON files with asset data
-- **Real-time Asset Display**: View all uploaded assets in a responsive table/card layout
-- **Advanced Filtering**: Filter assets by company ID with partial matching support
-- **Duplicate Detection**: Automatic detection and prevention of duplicate assets
+- **Real-time Asset Display**: View all uploaded assets in a responsive
+  table/card layout
+- **Advanced Filtering**: Filter assets by company ID with partial matching
+  support
+- **Duplicate Detection**: Automatic detection and prevention of duplicate
+  assets
 - **Responsive Design**: Mobile-first design with adaptive layouts
 - **Type Safety**: Full TypeScript implementation
 - **Comprehensive Testing**: Unit tests with 70%+ coverage
@@ -18,11 +23,13 @@ A comprehensive asset management system built with Next.js that allows companies
 This system implements the core assignment requirements:
 
 ### ✅ API Endpoints
+
 1. **POST `/api/assets/upload`** - Upload CSV/JSON files with asset data
 2. **GET `/api/assets`** - Retrieve assets with optional company filtering
 3. **DELETE `/api/assets/delete`** - Delete specific assets by coordinates
 
 ### ✅ Core Features
+
 - Multi-format file upload (CSV, JSON)
 - In-memory storage with singleton pattern
 - Partial matching for company ID filters
@@ -31,10 +38,12 @@ This system implements the core assignment requirements:
 - Responsive UI with mobile support
 
 ### ✅ Technical Excellence
+
 - **Testing**: Comprehensive Jest test suite with 92+ tests
 - **Code Quality**: ESLint, Prettier, TypeScript strict mode
 - **Performance**: Optimized queries and caching strategies
-- **Scalability**: Detailed scaling documentation (see [SCALING.md](./SCALING.md))
+- **Scalability**: Detailed scaling documentation (see
+  [SCALING.md](./SCALING.md))
 
 ## 🛠️ Technology Stack
 
@@ -65,6 +74,7 @@ The application will be available at `http://localhost:3000`
 ## 🧪 Testing
 
 ### Run Tests
+
 ```bash
 # Run all tests
 npm test
@@ -80,6 +90,7 @@ npm run test:ci
 ```
 
 ### Test Coverage
+
 - **Storage Layer**: 100% coverage with edge cases
 - **File Validation**: 95+ coverage with error handling
 - **API Endpoints**: 90+ coverage with all HTTP methods
@@ -87,6 +98,7 @@ npm run test:ci
 - **Edge Cases**: Large files, invalid data, Unicode support
 
 ### Test Types
+
 1. **Unit Tests**: Individual functions and classes
 2. **Integration Tests**: API endpoints with mocked dependencies
 3. **Component Tests**: React component rendering and interactions

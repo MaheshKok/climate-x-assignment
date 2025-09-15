@@ -125,6 +125,17 @@ module.exports = {
         project: null, // Don't use project for config files
       },
     },
+    {
+      files: ['__tests__/**/*.ts', '__tests__/**/*.tsx', 'jest.setup.ts'],
+      parserOptions: {
+        project: './tsconfig.test.json', // Use separate test config
+      },
+      rules: {
+        '@typescript-eslint/no-explicit-any': 'off', // Allow any in tests
+        '@typescript-eslint/no-non-null-assertion': 'off', // Allow non-null assertions in tests
+        'no-console': 'off', // Allow console in tests
+      },
+    },
   ],
   ignorePatterns: ['node_modules/', '.next/', 'out/', 'dist/', 'build/', '*.config.js'],
 };

@@ -73,7 +73,10 @@ export function formatFileSize(bytes: number): string {
 
   const k = 1024;
   const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-  const i = Math.max(0, Math.min(sizes.length - 1, Math.floor(Math.log(Math.abs(bytes)) / Math.log(k))));
+  const i = Math.max(
+    0,
+    Math.min(sizes.length - 1, Math.floor(Math.log(Math.abs(bytes)) / Math.log(k)))
+  );
 
   const result = bytes / Math.pow(k, i);
   const formatted = result % 1 === 0 ? result.toString() : result.toFixed(1);

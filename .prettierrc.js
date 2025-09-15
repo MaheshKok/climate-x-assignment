@@ -16,7 +16,7 @@ module.exports = {
 
   // JSX specific
   jsxSingleQuote: true,
-  jsxBracketSameLine: false,
+  bracketSameLine: false,
 
   // Object/Array formatting
   bracketSpacing: true,

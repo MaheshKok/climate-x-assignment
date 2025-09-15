@@ -75,6 +75,8 @@
     "dist",
     "build",
     "coverage",
-    "*.config.js"
+    "*.config.js",
+    "__tests__",
+    "jest.setup.ts"
   ]
 }
