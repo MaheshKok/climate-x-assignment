@@ -3,7 +3,7 @@
  * Display assets with address, latitude, longitude
  */
 
-import { RepeatIcon, DeleteIcon } from '@chakra-ui/icons';
+import { RepeatIcon, DeleteIcon, CloseIcon } from '@chakra-ui/icons';
 import {
   Box,
   VStack,
@@ -17,6 +17,8 @@ import {
   Text,
   Button,
   Input,
+  InputGroup,
+  InputRightElement,
   Alert,
   AlertIcon,
   Spinner,
@@ -26,8 +28,6 @@ import {
   CardBody,
   SimpleGrid,
   Badge,
-  Flex,
-  Spacer,
   useToast,
   IconButton,
   AlertDialog,
@@ -225,11 +225,24 @@ export default function AssetList({ onAssetSelect, refreshTrigger }: AssetListPr
           />
         </Box>
         <Box minW='150px'>
-          <Input
-            placeholder='Filter by Company ID'
-            value={companyFilter}
-            onChange={e => setCompanyFilter(e.target.value)}
-          />
+          <InputGroup>
+            <Input
+              placeholder='Filter by Company ID'
+              value={companyFilter}
+              onChange={e => setCompanyFilter(e.target.value)}
+            />
+            {companyFilter && (
+              <InputRightElement>
+                <IconButton
+                  aria-label='Clear company filter'
+                  icon={<CloseIcon />}
+                  size='xs'
+                  variant='ghost'
+                  onClick={() => setCompanyFilter('')}
+                />
+              </InputRightElement>
+            )}
+          </InputGroup>
         </Box>
         <Button
           leftIcon={<RepeatIcon />}
@@ -242,19 +255,11 @@ export default function AssetList({ onAssetSelect, refreshTrigger }: AssetListPr
       </HStack>
 
       {/* Results Summary */}
-      <Flex>
-        <Text color='gray.600' fontSize='sm'>
-          {filteredAssets.length === 0
-            ? 'No assets found'
-            : `Showing ${filteredAssets.length} asset${filteredAssets.length !== 1 ? 's' : ''}`}
-        </Text>
-        <Spacer />
-        {companyFilter && (
-          <Badge colorScheme='blue' variant='outline'>
-            Company: {companyFilter}
-          </Badge>
-        )}
-      </Flex>
+      <Text color='gray.600' fontSize='sm'>
+        {filteredAssets.length === 0
+          ? 'No assets found'
+          : `Showing ${filteredAssets.length} asset${filteredAssets.length !== 1 ? 's' : ''}`}
+      </Text>
 
       {filteredAssets.length === 0 ? (
         <Center py={10}>

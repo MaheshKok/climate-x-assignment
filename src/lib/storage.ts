@@ -44,8 +44,14 @@ class AssetStorage {
 
   public getAssets(companyId?: string): AssetWithCompany[] {
     if (companyId) {
-      const assets = this.storage[companyId] || [];
-      return assets.map(asset => ({ ...asset, companyId }));
+      // Support partial matching for company IDs
+      const allAssets: AssetWithCompany[] = [];
+      for (const [compId, assets] of Object.entries(this.storage)) {
+        if (compId.toLowerCase().includes(companyId.toLowerCase())) {
+          allAssets.push(...assets.map(asset => ({ ...asset, companyId: compId })));
+        }
+      }
+      return allAssets;
     }
 
     // Return all assets with their companyId
@@ -98,8 +104,7 @@ class AssetStorage {
 
     const assetsToDelete = this.storage[companyId].filter(
       asset =>
-        Math.abs(asset.latitude - latitude) < 0.0001 &&
-        Math.abs(asset.longitude - longitude) < 0.0001
+        Math.abs(asset.latitude - latitude) < 0.001 && Math.abs(asset.longitude - longitude) < 0.001
     );
 
     if (assetsToDelete.length === 0) {
@@ -111,8 +116,8 @@ class AssetStorage {
     this.storage[companyId] = this.storage[companyId].filter(
       asset =>
         !(
-          Math.abs(asset.latitude - latitude) < 0.0001 &&
-          Math.abs(asset.longitude - longitude) < 0.0001
+          Math.abs(asset.latitude - latitude) < 0.001 &&
+          Math.abs(asset.longitude - longitude) < 0.001
         )
     );
 

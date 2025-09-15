@@ -11,22 +11,12 @@ import { AssetValidationResult, ParsedCsvData, ParsedJsonData } from '../types/a
 const FILE_TYPE_MAPPINGS = {
   'text/csv': 'csv',
   'application/json': 'json',
-  'image/jpeg': 'image',
-  'image/png': 'image',
-  'image/gif': 'image',
-  'image/webp': 'image',
-  'application/pdf': 'document',
-  'text/plain': 'document',
-  'application/msword': 'document',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'document',
 } as const;
 
 // Maximum file sizes (in bytes)
 const MAX_FILE_SIZES = {
   csv: 50 * 1024 * 1024, // 50MB
   json: 10 * 1024 * 1024, // 10MB
-  image: 5 * 1024 * 1024, // 5MB
-  document: 20 * 1024 * 1024, // 20MB
   other: 10 * 1024 * 1024, // 10MB
 };
 
@@ -70,8 +60,8 @@ export function validateFile(file: File): AssetValidationResult {
   };
 }
 
-export function getFileType(mimeType: string): 'csv' | 'json' | 'image' | 'document' | 'other' {
-  return FILE_TYPE_MAPPINGS[mimeType as keyof typeof FILE_TYPE_MAPPINGS] || 'other';
+export function getFileType(mimeType: string): 'csv' | 'json' {
+  return FILE_TYPE_MAPPINGS[mimeType as keyof typeof FILE_TYPE_MAPPINGS] || 'json';
 }
 
 export function formatFileSize(bytes: number): string {
