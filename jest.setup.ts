@@ -33,12 +33,13 @@ jest.mock('next/router', () => ({
 global.fetch = jest.fn();
 
 // Mock File and FileReader for file upload tests
-global.File = class MockFile {
+class MockFile {
   bits: string[];
   name: string;
   size: number;
   type: string;
   lastModified: number;
+  webkitRelativePath: string = '';
 
   constructor(
     fileBits: string[],
@@ -51,15 +52,45 @@ global.File = class MockFile {
     this.type = options.type || '';
     this.lastModified = options.lastModified || Date.now();
   }
-};
 
-global.FileReader = class MockFileReader {
+  arrayBuffer(): Promise<ArrayBuffer> {
+    return Promise.resolve(new ArrayBuffer(0));
+  }
+
+  bytes(): Promise<Uint8Array> {
+    return Promise.resolve(new Uint8Array(0));
+  }
+
+  slice(start?: number, end?: number, contentType?: string): Blob {
+    return new Blob();
+  }
+
+  stream(): ReadableStream<Uint8Array> {
+    return new ReadableStream();
+  }
+
+  text(): Promise<string> {
+    return Promise.resolve(this.bits.join(''));
+  }
+}
+
+global.File = MockFile as any;
+
+class MockFileReader {
+  static readonly EMPTY = 0;
+  static readonly LOADING = 1;
+  static readonly DONE = 2;
+
+  readonly EMPTY = 0;
+  readonly LOADING = 1;
+  readonly DONE = 2;
+
   readyState: number;
-  result: string | null;
-  error: Error | null;
-  onload: ((event: { target: MockFileReader }) => void) | null;
-  onerror: (() => void) | null;
-  onabort: (() => void) | null;
+  result: string | ArrayBuffer | null;
+  error: DOMException | null;
+  onload: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null;
+  onerror: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null;
+  onabort: ((this: FileReader, ev: ProgressEvent<FileReader>) => any) | null;
 
   constructor() {
     this.readyState = 0;
@@ -70,55 +101,104 @@ global.FileReader = class MockFileReader {
     this.onabort = null;
   }
 
-  readAsText(file: File | string) {
+  readAsText(file: Blob) {
     this.readyState = 2;
-
     // Handle MockFile objects with bits array
-    if (file && typeof file === 'object' && 'bits' in file && Array.isArray(file.bits)) {
-      this.result = file.bits.join('');
-    } else if (typeof file === 'string') {
-      this.result = file;
+    if (file && typeof file === 'object' && 'bits' in file && Array.isArray((file as any).bits)) {
+      this.result = (file as any).bits.join('');
     } else {
       this.result = 'mocked file content';
     }
 
-    // Use setTimeout to simulate async behavior
     setTimeout(() => {
       if (this.onload) {
-        this.onload({ target: this });
+        this.onload.call(this, {} as ProgressEvent<FileReader>);
       }
     }, 0);
   }
 
-  readAsDataURL(_file: File | string) {
+  readAsDataURL(file: Blob) {
     this.readyState = 2;
     this.result = 'data:text/plain;base64,bW9ja2VkIGZpbGUgY29udGVudA==';
 
     setTimeout(() => {
       if (this.onload) {
-        this.onload({ target: this });
+        this.onload.call(this, {} as ProgressEvent<FileReader>);
       }
     }, 0);
   }
-};
+
+  abort() {
+    this.readyState = 2;
+  }
+}
+
+global.FileReader = MockFileReader as any;
 
 // Mock FormData
-global.FormData = class MockFormData {
-  data: Map<string, any>;
+class MockFormData {
+  data: Map<string, FormDataEntryValue[]>;
 
   constructor() {
     this.data = new Map();
   }
 
-  append(key: string, value: any) {
-    this.data.set(key, value);
+  append(name: string, value: string | Blob, fileName?: string) {
+    const existing = this.data.get(name) || [];
+    existing.push(value as FormDataEntryValue);
+    this.data.set(name, existing);
   }
 
-  get(key: string) {
-    return this.data.get(key);
+  delete(name: string) {
+    this.data.delete(name);
   }
 
-  has(key: string) {
-    return this.data.has(key);
+  get(name: string): FormDataEntryValue | null {
+    const values = this.data.get(name);
+    return values && values.length > 0 ? values[0] : null;
   }
-};
+
+  getAll(name: string): FormDataEntryValue[] {
+    return this.data.get(name) || [];
+  }
+
+  has(name: string): boolean {
+    return this.data.has(name);
+  }
+
+  set(name: string, value: string | Blob, fileName?: string) {
+    this.data.set(name, [value as FormDataEntryValue]);
+  }
+
+  forEach(callbackfn: (value: FormDataEntryValue, key: string, parent: FormData) => void) {
+    this.data.forEach((values, key) => {
+      values.forEach(value => callbackfn(value, key, this as any));
+    });
+  }
+
+  entries(): IterableIterator<[string, FormDataEntryValue]> {
+    const entries: [string, FormDataEntryValue][] = [];
+    this.data.forEach((values, key) => {
+      values.forEach(value => entries.push([key, value]));
+    });
+    return entries[Symbol.iterator]();
+  }
+
+  keys(): IterableIterator<string> {
+    return this.data.keys();
+  }
+
+  values(): IterableIterator<FormDataEntryValue> {
+    const values: FormDataEntryValue[] = [];
+    this.data.forEach(entryValues => {
+      values.push(...entryValues);
+    });
+    return values[Symbol.iterator]();
+  }
+
+  [Symbol.iterator](): IterableIterator<[string, FormDataEntryValue]> {
+    return this.entries();
+  }
+}
+
+global.FormData = MockFormData as any;

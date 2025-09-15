@@ -45,7 +45,7 @@ describe('/api/assets', () => {
         method: 'GET',
       });
 
-      await handler(req, res);
+      await handler(req as any, res as any);
 
       expect(res._getStatusCode()).toBe(200);
       const data = JSON.parse(res._getData());
@@ -74,7 +74,7 @@ describe('/api/assets', () => {
         },
       });
 
-      await handler(req, res);
+      await handler(req as any, res as any);
 
       expect(res._getStatusCode()).toBe(200);
       const data = JSON.parse(res._getData());
@@ -110,7 +110,7 @@ describe('/api/assets', () => {
         },
       });
 
-      await handler(req, res);
+      await handler(req as any, res as any);
 
       expect(res._getStatusCode()).toBe(200);
       const data = JSON.parse(res._getData());
@@ -129,7 +129,7 @@ describe('/api/assets', () => {
         },
       });
 
-      await handler(req, res);
+      await handler(req as any, res as any);
 
       expect(res._getStatusCode()).toBe(200);
       const data = JSON.parse(res._getData());
@@ -157,7 +157,7 @@ describe('/api/assets', () => {
         },
       });
 
-      await handler(req, res);
+      await handler(req as any, res as any);
 
       expect(res._getStatusCode()).toBe(200);
       expect(mockAssetStorage.getAssets).toHaveBeenCalledWith('');
@@ -174,7 +174,7 @@ describe('/api/assets', () => {
         },
       });
 
-      await handler(req, res);
+      await handler(req as any, res as any);
 
       expect(res._getStatusCode()).toBe(200);
       expect(mockAssetStorage.getAssets).toHaveBeenCalledWith('test');
@@ -190,7 +190,7 @@ describe('/api/assets', () => {
         },
       });
 
-      await handler(req, res);
+      await handler(req as any, res as any);
 
       expect(res._getStatusCode()).toBe(200);
       // Should use the first value when array is provided
@@ -208,7 +208,7 @@ describe('/api/assets', () => {
         method: 'GET',
       });
 
-      await handler(req, res);
+      await handler(req as any, res as any);
 
       expect(res._getStatusCode()).toBe(500);
       const data = JSON.parse(res._getData());
@@ -225,7 +225,7 @@ describe('/api/assets', () => {
         method: 'GET',
       });
 
-      await handler(req, res);
+      await handler(req as any, res as any);
 
       expect(res._getStatusCode()).toBe(200);
       const data = JSON.parse(res._getData());
@@ -241,7 +241,7 @@ describe('/api/assets', () => {
         method: 'POST',
       });
 
-      await handler(req, res);
+      await handler(req as any, res as any);
 
       expect(res._getStatusCode()).toBe(405);
       const data = JSON.parse(res._getData());
@@ -256,7 +256,7 @@ describe('/api/assets', () => {
         method: 'PUT',
       });
 
-      await handler(req, res);
+      await handler(req as any, res as any);
 
       expect(res._getStatusCode()).toBe(405);
     });
@@ -266,7 +266,7 @@ describe('/api/assets', () => {
         method: 'DELETE',
       });
 
-      await handler(req, res);
+      await handler(req as any, res as any);
 
       expect(res._getStatusCode()).toBe(405);
     });
@@ -276,7 +276,7 @@ describe('/api/assets', () => {
         method: 'PATCH',
       });
 
-      await handler(req, res);
+      await handler(req as any, res as any);
 
       expect(res._getStatusCode()).toBe(405);
     });
@@ -290,7 +290,7 @@ describe('/api/assets', () => {
         method: 'GET',
       });
 
-      await handler(req, res);
+      await handler(req as any, res as any);
 
       const data = JSON.parse(res._getData());
       expect(data).toHaveProperty('success');
@@ -306,7 +306,7 @@ describe('/api/assets', () => {
         method: 'POST',
       });
 
-      await handler(req, res);
+      await handler(req as any, res as any);
 
       const data = JSON.parse(res._getData());
       expect(data).toHaveProperty('error');
@@ -330,7 +330,7 @@ describe('/api/assets', () => {
       });
 
       const startTime = Date.now();
-      await handler(req, res);
+      await handler(req as any, res as any);
       const endTime = Date.now();
 
       expect(res._getStatusCode()).toBe(200);
@@ -353,7 +353,7 @@ describe('/api/assets', () => {
         const { req, res } = createMocks({
           method: 'GET',
         });
-        return handler(req, res).then(() => res);
+        return handler(req as any, res as any).then(() => res);
       });
 
       const responses = await Promise.all(promises);
@@ -378,7 +378,7 @@ describe('/api/assets', () => {
         },
       });
 
-      await handler(req, res);
+      await handler(req as any, res as any);
 
       expect(res._getStatusCode()).toBe(200);
       expect(mockAssetStorage.getAssets).toHaveBeenCalledWith(longCompanyName);
@@ -395,7 +395,7 @@ describe('/api/assets', () => {
         },
       });
 
-      await handler(req, res);
+      await handler(req as any, res as any);
 
       expect(res._getStatusCode()).toBe(200);
       expect(mockAssetStorage.getAssets).toHaveBeenCalledWith(unicodeCompanyName);
@@ -412,7 +412,7 @@ describe('/api/assets', () => {
         },
       });
 
-      await handler(req, res);
+      await handler(req as any, res as any);
 
       expect(res._getStatusCode()).toBe(200);
       expect(mockAssetStorage.getAssets).toHaveBeenCalledWith(specialCompanyName);
