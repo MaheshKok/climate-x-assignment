@@ -117,7 +117,7 @@ module.exports = {
       },
     },
     {
-      files: ['next.config.js', '.eslintrc.js'],
+      files: ['next.config.js', '.eslintrc.js', 'jest.setup.js'],
       env: {
         node: true,
       },
