@@ -66,7 +66,7 @@ export default function HomePage() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <Box minH='100vh' bg='gray.50'>
+      <Box minH='100vh' bgGradient='linear(to-b, gray.50, gray.100)'>
         <Container maxW='7xl' py={8}>
           <VStack spacing={8} align='stretch'>
             {/* Header */}
@@ -82,15 +82,22 @@ export default function HomePage() {
                 Asset Management System
               </Heading>
               <Text fontSize='lg' color='gray.600' maxW='2xl' mx='auto'>
-                Upload asset data via CSV or JSON files and view them in a clean interface. Each
-                asset contains an address, latitude, and longitude
+                Upload asset data via CSV or JSON files and manage them effortlessly. asset contains
+                an address, latitude, and longitude
               </Text>
             </Box>
 
             <Divider />
 
             {/* Main Content */}
-            <Tabs variant='enclosed' colorScheme='blue'>
+            <Tabs
+              variant='modern'
+              colorScheme='brand'
+              bg='white'
+              p={4}
+              borderRadius='lg'
+              shadow='sm'
+            >
               <TabList>
                 <Tab>
                   <HStack spacing={2}>
